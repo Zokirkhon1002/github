@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- JavaScript -->
+  <script>
+    async function showAvatar() {
+     
+      // 1. userName o'zgaruvchisining qiymatini input'dan olamiz:
+      let userName = document.getElementById("userName").value;
+ 
+     // 2. githubUrl o'zgaruvchisiga qiymat beramiz:
+     let githubUrl = `https://api.github.com/users/${userName}`;
+ 
+     // 3. fetch yordamida api.github.com ga so'rov jo'natib, natijani olamiz:
+     let githubResponse = await fetch(githubUrl);
+ 
+     // 4. github'dan kelgan javobni json'ga o'girib, uni o'zgaruvchiga olamiz:
+     let githubUser = await githubResponse.json();
+ 
+     // 5. UserData div'ni tozalab tashlaymiz.
+     document.getElementById("userData").innerHTML = "";
+ 
+     // 6. yangi img elementini yaratamiz.
+     let img = document.createElement("img");
+ 
+     /* 7. elementning src xossasiga guthubUser obyektining
+           avatar_url xossasini qiymatini beramiz. */
+     img.src = githubUser.avatar_url;
+ 
+     // 8. img elementini userData div'i ichiga qo'shib yuboramiz:
+     document.getElementById("userData").append(img);
+     document.getElementById("url").innerHTML = githubUrl;
+    }
+  </script>
+
+
+
+<!-- Style CSS  -->
+<style>
+  body {
+    text-align: center;
+    color: white;
+    background: black;
+    display: block;
+    padding: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    margin: 20px;
+    color: white;
+    background: red;
+    border: none;
+    transition: all 0.3s;
+  }
+  button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: red;
+  }
+  input, #url {
+    color: red;
+  }
+  label {
+    font-size: 2.5vw;
+  }
+
+
+
+</style>
+</head>
+<body>
+ 
+  <label>
+    Github foydalanuvchisi nomini kiriting:<br>
+    <input type="text" id="userName" autofocus />
+  </label>
+    <button onclick="showAvatar()">Avatarni ko'rsat</button>
+    <p></p>
+    <div id="userData">
+
+    </div>
+
+    <p id="url"></p>
+
+
+  <!-- <script src="55-lesson.js"></script> -->
+
+</body>
+</html>
